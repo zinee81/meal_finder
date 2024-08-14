@@ -36,6 +36,7 @@ searchButton.addEventListener("click", async () => {
 
 // 이미지 클릭 시 팝업 열기
 resultsDiv.addEventListener("click", async (event) => {
+  console.log(event);
   if (event.target.tagName === "img") {
     const mealId = event.target.dataset.id;
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`);
