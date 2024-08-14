@@ -19,7 +19,7 @@ searchButton.addEventListener("click", async () => {
         data.meals.forEach((meal) => {
           const mealDiv = document.createElement("div");
           mealDiv.classList.add("result-item");
-          mealDiv.innerHTML = `<img src="${meal.strMealThumb}" alt="${meal.strMeal}">`;
+          mealDiv.innerHTML = `<img src="${meal.strMealThumb}" alt="${meal.strMeal}" data-id="${meal.idMeal}">`;
           resultsDiv.appendChild(mealDiv);
         });
       } else {
@@ -36,8 +36,7 @@ searchButton.addEventListener("click", async () => {
 
 // 이미지 클릭 시 팝업 열기
 resultsDiv.addEventListener("click", async (event) => {
-  console.log(event);
-  if (event.target.tagName === "img") {
+  if (event.target.tagName === "IMG") {
     const mealId = event.target.dataset.id;
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`);
     const data = await response.json();
