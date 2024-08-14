@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meal Finder</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://kit.fontawesome.com/d035e75539.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="top_search">
+        <h1>Meal Finder</h1>
+        <input type="text" id="search-input" placeholder="Search for meals of keywords" />
+        <button id="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </div>
+      <div id="results"></div>
+      <div id="popup" class="popup">
+        <div class="popup-content">
+          <span class="close-button"></span>
+          <h2 id="meal-title"></h2>
+          <img id="meal-image" src="" alt="" />
+          <p id="meal-description"></p>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
