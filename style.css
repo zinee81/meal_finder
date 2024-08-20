@@ -7,6 +7,7 @@ body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
   padding: 20px;
+  color: #666;
 }
 
 .container {
@@ -45,7 +46,6 @@ body {
 .result-item {
   width: 110px;
   margin-bottom: 10px;
-  color: #666;
   font-size: 13px;
   white-space: nowrap; /* 자동 줄바꿈 금지 */
   overflow: hidden; /* 글자가 가로폭을 초과할 때 숨기기 */
@@ -94,7 +94,6 @@ body {
   overflow-y: auto; /* y축 스크롤 활성화 */
   text-align: center;
   font-size: 14px;
-  color: #666;
 }
 .popup-content p {
   text-align: left;
