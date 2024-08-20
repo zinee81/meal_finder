@@ -21,17 +21,19 @@ body {
   padding: 15px 0;
 }
 #search-input,
-#search-button {
+#search-button,
+#random-button {
   padding: 5px;
   border: 1px solid #bbb;
   border-radius: 5px;
 }
 
 #search-input {
-  width: 300px;
+  width: 250px;
   margin-right: 5px;
 }
-#search-button {
+#search-button,
+#random-button {
   cursor: pointer;
 }
 
