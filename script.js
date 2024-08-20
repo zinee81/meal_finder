@@ -1,5 +1,6 @@
 const searchButton = document.getElementById("search-button");
 const searchInput = document.getElementById("search-input");
+const randomButton = document.getElementById("random-button");
 const resultsDiv = document.getElementById("results");
 const popup = document.getElementById("popup");
 const mealTitle = document.getElementById("meal-title");
@@ -56,6 +57,49 @@ searchButton.addEventListener("click", async () => {
   } else {
     // 검색값을 입력하지 않았을때
     resultsDiv.innerHTML = "<p>Search for meals of keywords</p>";
+  }
+});
+
+randomButton.addEventListener("click", async () => {
+  try {
+    // themealdb api에서 검색한 값을 fetch로 받아옴
+    const response = await fetch(`www.themealdb.com/api/json/v1/1/random.php`);
+    const data = await response.json(); // 받아온 값을 json 값으로 변환
+    resultsDiv.innerHTML = ""; // 이전 결과 지우기
+
+    // 검색된 음식이 있다면 실행
+    if (data.meals) {
+      /*
+        data.meals.forEach((meal) => {
+          const mealDiv = document.createElement("div");
+          const mealImg = document.createElement("div");
+          mealImg.classList.add("result-item");
+          mealImg.innerHTML = `<img src="${meal.strMealThumb}" alt="${meal.strMeal}" data-id="${meal.idMeal}" class="meal-image">`;
+          mealDiv.innerHTML = `${meal.strMeal}`;
+          mealDiv.appendChild(mealImg);
+          resultsDiv.appendChild(mealDiv);
+        });*/
+
+      // 스트링 변수를 만들어줌(검색된 결과를 보여주는 html 코드를 저장)
+      let mealDiv = "";
+      // 검색된 음식 갯수만큼 실행해서 페이지에 뿌려줌
+      data.meals.forEach((meal) => {
+        mealDiv += `<div class='result-item'>
+            <div class='result-img'>
+              <img src="${meal.strMealThumb}" alt="${meal.strMeal}" data-id="${meal.idMeal}">
+            </div>
+          <label>${meal.strMeal}</label></div>`;
+      });
+      // mealDiv에 저장된 결과값을 results div에 넣어줘서 화면에 출력
+      resultsDiv.innerHTML = mealDiv;
+    } else {
+      // 검색된 음식이 없다면 실행
+      resultsDiv.innerHTML = "<p>No Result</p>";
+    }
+  } catch (error) {
+    // api에서 검색한 결과가 비정상일때
+    console.error("Error fetching data:", error);
+    resultsDiv.innerHTML = "<p>데이터를 가져오는 중 오류가 발생했습니다.</p>";
   }
 });
 
