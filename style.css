@@ -87,6 +87,7 @@ body {
 #meal-image {
   width: 300px;
   height: auto;
+  margin: 10px;
 }
 .close-button {
   cursor: pointer;
