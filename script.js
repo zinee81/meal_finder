@@ -1,6 +1,6 @@
 const searchButton = document.getElementById("search-button");
 const searchInput = document.getElementById("search-input");
-const randomButton = document.getElementById("random-button");
+const categoryButton = document.getElementById("category-button");
 const resultsDiv = document.getElementById("results");
 const popup = document.getElementById("popup");
 const mealTitle = document.getElementById("meal-title");
@@ -9,66 +9,14 @@ const mealIngredient = document.getElementById("meal-ingredient");
 const mealDescription = document.getElementById("meal-description");
 const closeButton = document.querySelector(".close-button");
 
-searchButton.addEventListener("click", async () => {
-  // 검색값을 받아옴
-  const query = searchInput.value;
-  // 입력된 검색어가 있으면 실행
-  if (query) {
-    try {
-      // themealdb api에서 검색한 값을 fetch로 받아옴
-      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`);
-      const data = await response.json(); // 받아온 값을 json 값으로 변환
-      resultsDiv.innerHTML = ""; // 이전 결과 지우기
-
-      // 검색된 음식이 있다면 실행
-      if (data.meals) {
-        /*
-        data.meals.forEach((meal) => {
-          const mealDiv = document.createElement("div");
-          const mealImg = document.createElement("div");
-          mealImg.classList.add("result-item");
-          mealImg.innerHTML = `<img src="${meal.strMealThumb}" alt="${meal.strMeal}" data-id="${meal.idMeal}" class="meal-image">`;
-          mealDiv.innerHTML = `${meal.strMeal}`;
-          mealDiv.appendChild(mealImg);
-          resultsDiv.appendChild(mealDiv);
-        });*/
-
-        // 스트링 변수를 만들어줌(검색된 결과를 보여주는 html 코드를 저장)
-        let mealDiv = "";
-        // 검색된 음식 갯수만큼 실행해서 페이지에 뿌려줌
-        data.meals.forEach((meal) => {
-          mealDiv += `<div class='result-item'>
-            <div class='result-img'>
-              <img src="${meal.strMealThumb}" alt="${meal.strMeal}" data-id="${meal.idMeal}">
-            </div>
-          <label>${meal.strMeal}</label></div>`;
-        });
-        // mealDiv에 저장된 결과값을 results div에 넣어줘서 화면에 출력
-        resultsDiv.innerHTML = mealDiv;
-      } else {
-        // 검색된 음식이 없다면 실행
-        resultsDiv.innerHTML = "<p>No Result</p>";
-      }
-    } catch (error) {
-      // api에서 검색한 결과가 비정상일때
-      console.error("Error fetching data:", error);
-      resultsDiv.innerHTML = "<p>데이터를 가져오는 중 오류가 발생했습니다.</p>";
-    }
-  } else {
-    // 검색값을 입력하지 않았을때
-    resultsDiv.innerHTML = "<p>Search for meals of keywords</p>";
-  }
-});
-
-randomButton.addEventListener("click", async () => {
+// query값을 검색하여 list를 출력
+async function mealList(query) {
   try {
     // themealdb api에서 검색한 값을 fetch로 받아옴
-    const response = await fetch(`www.themealdb.com/api/json/v1/1/randomselection.php`);
+    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`);
     const data = await response.json(); // 받아온 값을 json 값으로 변환
     resultsDiv.innerHTML = ""; // 이전 결과 지우기
 
-    // 검색된 음식이 있다면 실행
-    // if (data.meals) {
     // 스트링 변수를 만들어줌(검색된 결과를 보여주는 html 코드를 저장)
     let mealDiv = "";
     // 검색된 음식 갯수만큼 실행해서 페이지에 뿌려줌
@@ -81,16 +29,42 @@ randomButton.addEventListener("click", async () => {
     });
     // mealDiv에 저장된 결과값을 results div에 넣어줘서 화면에 출력
     resultsDiv.innerHTML = mealDiv;
-    // } else {
-    // 검색된 음식이 없다면 실행
-    // resultsDiv.innerHTML = "<p>No Result</p>";
-    // }
   } catch (error) {
     // api에서 검색한 결과가 비정상일때
     console.error("Error fetching data:", error);
     resultsDiv.innerHTML = "<p>데이터를 가져오는 중 오류가 발생했습니다.</p>";
   }
+}
+
+// 검색 버튼 눌렀을 때
+searchButton.addEventListener("click", () => {
+  // 검색값을 받아옴
+  const query = searchInput.value;
+  // 입력된 검색어가 있으면 실행
+  if (query) {
+    mealList(query);
+  } else {
+    // 검색값을 입력하지 않았을때
+    resultsDiv.innerHTML = "<p>Search for meals of keywords</p>";
+  }
 });
+
+// 랜덤으로 알파벳 하나 가져오기
+function getRandomLetter() {
+  const letters = "abcdefghijklmnopqrstuvwxyz";
+  const randomIndex = Math.floor(Math.random() * letters.length);
+  return letters[randomIndex];
+}
+
+// 랜덤 버튼을 클릭하면 출력
+// randomButton.addEventListener("click", () => {
+//   mealList(getRandomLetter());
+// });
+
+// 페이지가 로딩될때 랜덤으로 요리를 출력
+window.onload = function () {
+  mealList(getRandomLetter());
+};
 
 // 이미지 클릭 시 팝업 열기
 resultsDiv.addEventListener("click", async (event) => {
@@ -137,11 +111,3 @@ popup.addEventListener("click", (event) => {
     popup.style.display = "none"; // 팝업 숨기기
   }
 });
-
-// 이미지 클릭 시 새 창 열기
-// resultsDiv.addEventListener("click", async (event) => {
-//   if (event.target.classList.contains("meal-image")) {
-//     const mealId = event.target.dataset.id;
-//     window.open(`https://www.themealdb.com/meal.php?c=${mealId}`, "_blank"); // 새 창에서 열기
-//   }
-// });
