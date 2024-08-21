@@ -20,6 +20,7 @@ body {
 }
 .top_search {
   padding: 15px 0;
+  display: flex;
 }
 #search-input,
 #search-button,
@@ -27,21 +28,35 @@ body {
   padding: 5px;
   border: 1px solid #bbb;
   border-radius: 5px;
+  margin-right: 5px;
 }
 
 #search-input {
   width: 250px;
-  margin-right: 5px;
 }
 #search-button,
-#random-button {
+#category-button {
   cursor: pointer;
 }
-
+#category {
+  width: 300px;
+  display: none; /* 기본적으로 숨김 */
+  position: absolute;
+  background-color: #666;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 1;
+}
+#category a {
+  color: #fff;
+}
+#category label {
+  display: inline-block;
+  padding: 5px;
+}
 #results {
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: space-between; */
 }
 .result-item {
   width: 110px;

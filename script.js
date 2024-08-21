@@ -1,6 +1,7 @@
 const searchButton = document.getElementById("search-button");
 const searchInput = document.getElementById("search-input");
 const categoryButton = document.getElementById("category-button");
+const category = document.getElementById("category");
 const resultsDiv = document.getElementById("results");
 const popup = document.getElementById("popup");
 const mealTitle = document.getElementById("meal-title");
@@ -64,7 +65,57 @@ function getRandomLetter() {
 // 페이지가 로딩될때 랜덤으로 요리를 출력
 window.onload = function () {
   mealList(getRandomLetter());
+  categoryView();
 };
+
+// 요리 카테고리를 불러옴
+async function categoryView() {
+  try {
+    // themealdb api에서 검색한 값을 fetch로 받아옴
+    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`);
+    const data = await response.json(); // 받아온 값을 json 값으로 변환
+
+    // 스트링 변수를 만들어줌(카테고리를 html 코드로 저장)
+    let categoryDiv = "";
+    // 카테고리 종류를 페이지에 뿌려줌
+    data.categories.forEach((category) => {
+      categoryDiv += `<label><a href='#'>${category.strCategory}</a></label>`;
+    });
+    // mealDiv에 저장된 결과값을 category div에 넣어줘서 화면에 출력
+    category.innerHTML = categoryDiv;
+  } catch (error) {
+    // api에서 검색한 결과가 비정상일때
+    console.error("Error fetching data:", error);
+    category.innerHTML = "<p>데이터를 가져오는 중 오류가 발생했습니다.</p>";
+  }
+}
+category.addEventListener("click", (c) => {
+  if (c.target.tagName === "A") {
+    // 이벤트가 발생한 요소의 data-id 속성을 가져와 mealId라는 변수에 저장
+    const categories = c.target.innerText;
+    mealList(categories);
+  }
+});
+function showCategory() {
+  category.style.display = "block"; // category 표시
+}
+
+function hideCategory() {
+  category.style.display = "none"; // category 숨김
+}
+
+// 아이콘에 마우스 오버 시
+categoryButton.addEventListener("mouseover", showCategory);
+category.addEventListener("mouseover", showCategory);
+
+// 아이콘에서 마우스 아웃 시
+categoryButton.addEventListener("mouseout", hideCategory);
+category.addEventListener("mouseout", hideCategory);
+
+// 클릭 이벤트 핸들러
+function handleClick(message) {
+  alert(message); // 클릭 시 알림 창 표시
+}
 
 // 이미지 클릭 시 팝업 열기
 resultsDiv.addEventListener("click", async (event) => {
