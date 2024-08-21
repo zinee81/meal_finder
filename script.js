@@ -139,7 +139,7 @@ resultsDiv.addEventListener("click", async (event) => {
       }
       mealIngredient.innerHTML = ingreStr;
       // 요리법 출력
-      mealDescription.innerHTML = `<b>Recipe</b> : ${meal.strInstructions}`;
+      mealDescription.innerHTML = `<br><b>Recipe</b> : ${meal.strInstructions}`;
       popup.style.display = "block"; // 팝업 보이기
     }
   }
