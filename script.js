@@ -70,24 +70,18 @@ window.onload = function () {
 
 // 요리 카테고리를 불러옴
 async function categoryView() {
-  try {
-    // themealdb api에서 검색한 값을 fetch로 받아옴
-    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`);
-    const data = await response.json(); // 받아온 값을 json 값으로 변환
+  // themealdb api에서 검색한 값을 fetch로 받아옴
+  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`);
+  const data = await response.json(); // 받아온 값을 json 값으로 변환
 
-    // 스트링 변수를 만들어줌(카테고리를 html 코드로 저장)
-    let categoryDiv = "";
-    // 카테고리 종류를 페이지에 뿌려줌
-    data.categories.forEach((category) => {
-      categoryDiv += `<label><a href='#'>${category.strCategory}</a></label>`;
-    });
-    // mealDiv에 저장된 결과값을 category div에 넣어줘서 화면에 출력
-    category.innerHTML = categoryDiv;
-  } catch (error) {
-    // api에서 검색한 결과가 비정상일때
-    console.error("Error fetching data:", error);
-    category.innerHTML = "<p>데이터를 가져오는 중 오류가 발생했습니다.</p>";
-  }
+  // 스트링 변수를 만들어줌(카테고리를 html 코드로 저장)
+  let categoryDiv = "";
+  // 카테고리 종류를 페이지에 뿌려줌
+  data.categories.forEach((category) => {
+    categoryDiv += `<label><a href='#'>${category.strCategory}</a></label>`;
+  });
+  // categoryDiv에 저장된 결과값을 category div에 넣어줘서 화면에 출력
+  category.innerHTML = categoryDiv;
 }
 category.addEventListener("click", (c) => {
   if (c.target.tagName === "A") {
