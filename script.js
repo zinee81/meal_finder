@@ -57,11 +57,6 @@ function getRandomLetter() {
   return letters[randomIndex];
 }
 
-// 랜덤 버튼을 클릭하면 출력
-// randomButton.addEventListener("click", () => {
-//   mealList(getRandomLetter());
-// });
-
 // 페이지가 로딩될때 랜덤으로 요리를 출력
 window.onload = function () {
   mealList(getRandomLetter());
