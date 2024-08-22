@@ -160,6 +160,6 @@ $(".slide").slick({
   infinite: true,
   slidesToShow: 2,
   autoplay: true,
-  autoplaySpeed: 500,
+  autoplaySpeed: 700,
   arrows: false,
 });
