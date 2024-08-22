@@ -55,6 +55,15 @@ body {
   display: inline-block;
   padding: 5px;
 }
+
+.slide {
+  margin: 0 auto;
+  padding: 10px 0;
+}
+.slide img {
+  height: 150px;
+}
+
 #results {
   display: flex;
   flex-wrap: wrap;

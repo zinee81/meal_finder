@@ -154,3 +154,12 @@ popup.addEventListener("click", (event) => {
     popup.style.display = "none"; // 팝업 숨기기
   }
 });
+
+// 슬라이드
+$(".slide").slick({
+  infinite: true,
+  slidesToShow: 2,
+  autoplay: true,
+  autoplaySpeed: 1000,
+  arrows: false,
+});
