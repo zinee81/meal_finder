@@ -78,6 +78,8 @@ async function categoryView() {
   // categoryDiv에 저장된 결과값을 category div에 넣어줘서 화면에 출력
   category.innerHTML = categoryDiv;
 }
+
+// 카테고리 클릭시
 category.addEventListener("click", (c) => {
   if (c.target.tagName === "A") {
     // 이벤트가 발생한 요소의 data-id 속성을 가져와 mealId라는 변수에 저장
@@ -85,6 +87,7 @@ category.addEventListener("click", (c) => {
     mealList(categories);
   }
 });
+
 function showCategory() {
   category.style.display = "block"; // category 표시
 }
@@ -150,4 +153,13 @@ popup.addEventListener("click", (event) => {
   if (event.target === popup) {
     popup.style.display = "none"; // 팝업 숨기기
   }
+});
+
+// 슬라이드 추가
+$(".slide").slick({
+  infinite: true,
+  slidesToShow: 2,
+  autoplay: true,
+  autoplaySpeed: 700,
+  arrows: false,
 });
