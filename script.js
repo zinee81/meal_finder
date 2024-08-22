@@ -155,7 +155,7 @@ popup.addEventListener("click", (event) => {
   }
 });
 
-// 슬라이드
+// 슬라이드 추가
 $(".slide").slick({
   infinite: true,
   slidesToShow: 2,
